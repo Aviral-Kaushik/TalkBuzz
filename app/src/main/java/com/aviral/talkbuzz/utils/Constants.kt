@@ -6,4 +6,6 @@ object Constants {
 
     const val API_ID = "1273893"
 
+    const val MIN_USERNAME_LENGTH = 3
+
 }
