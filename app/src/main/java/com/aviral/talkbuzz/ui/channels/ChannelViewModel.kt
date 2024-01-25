@@ -1,5 +1,6 @@
 package com.aviral.talkbuzz.ui.channels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -49,6 +50,7 @@ class ChannelViewModel @Inject constructor(
             ).await()
 
             if (result.isError) {
+                Log.d("TalkCreateDialog", "createChannel: result: ${result.error().message}")
                 _createChannelEvent.emit(
                     CreateChannelEvent.Error(result.error().message ?: "Unknown Error")
                 )

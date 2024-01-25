@@ -15,9 +15,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CreateChannelDialog : DialogFragment() {
 
-    private var _binding: DialogChannelNameBinding? = null
-    private val binding: DialogChannelNameBinding
-        get() = _binding!!
+//    private var _binding: DialogChannelNameBinding? = null
+    private lateinit var binding: DialogChannelNameBinding
+//        get() = _binding!!
 
     private val viewModel: ChannelViewModel by activityViewModels()
 
@@ -26,11 +26,12 @@ class CreateChannelDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return binding.root
+//        binding = DialogChannelNameBinding.inflate(layoutInflater)
+        return null
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        _binding = DialogChannelNameBinding.inflate(layoutInflater)
+        binding = DialogChannelNameBinding.inflate(layoutInflater)
 
         return MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.choose_channel_name)
@@ -47,7 +48,7 @@ class CreateChannelDialog : DialogFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
+//        binding = null
     }
 
 }

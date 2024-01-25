@@ -89,4 +89,6 @@ dependencies {
     // Exo Media Player Library Required by io stream
 //    implementation("com.devbrackets.android:exomedia:5.1.0")
     implementation("com.github.chrisbanes:PhotoView:2.3.0")
+
+    implementation("androidx.work:work-runtime-ktx:2.7.1")
 }

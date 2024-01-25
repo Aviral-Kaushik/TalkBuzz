@@ -69,9 +69,10 @@ class ChannelFragment : BindingFragment<FragmentChannelBinding>() {
         }
 
         binding.channelListHeaderView.setOnActionButtonClickListener {
-            findNavController().navigateSafely(
-                R.id.action_channelFragment_to_createChannelDialog2
-            )
+//            findNavController().navigateSafely(
+//                R.id.action_channelFragment_to_createChannelDialog2
+//            )
+            CreateChannelDialog().show(parentFragmentManager, "Dialog")
         }
 
         lifecycleScope.launchWhenStarted {
