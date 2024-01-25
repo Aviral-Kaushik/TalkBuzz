@@ -7,6 +7,7 @@ import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.client.call.await
 import io.getstream.chat.android.client.models.User
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
@@ -17,6 +18,7 @@ class ChannelViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _createChannelEvent = MutableSharedFlow<CreateChannelEvent>()
+    val createChannelEvent = _createChannelEvent.asSharedFlow()
 
     fun logout() {
         client.disconnect()
@@ -28,11 +30,14 @@ class ChannelViewModel @Inject constructor(
 
     fun createChannel(channelName: String) {
         val trimmedChannelName = channelName.trim()
-        if (trimmedChannelName.isEmpty()) {
-            return
-        }
 
         viewModelScope.launch {
+
+            if (trimmedChannelName.isEmpty()) {
+                _createChannelEvent.emit(CreateChannelEvent.Error("Invalid Channel Name"))
+                return@launch
+            }
+
             val result = client.channel(
                 channelType = "messaging",
                 channelId = UUID.randomUUID().toString()
@@ -44,8 +49,14 @@ class ChannelViewModel @Inject constructor(
             ).await()
 
             if (result.isError) {
+                _createChannelEvent.emit(
+                    CreateChannelEvent.Error(result.error().message ?: "Unknown Error")
+                )
+
                 return@launch
             }
+
+            _createChannelEvent.emit(CreateChannelEvent.Success)
         }
     }
 

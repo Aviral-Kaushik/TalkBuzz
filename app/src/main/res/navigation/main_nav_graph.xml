@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_channelFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_channelFragment_to_createChannelDialog2"
+            app:destination="@id/createChannelDialog2" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
@@ -28,4 +31,8 @@
             android:name="channelId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/createChannelDialog2"
+        android:name="com.aviral.talkbuzz.ui.channels.CreateChannelDialog"
+        android:label="CreateChannelDialog" />
 </navigation>
