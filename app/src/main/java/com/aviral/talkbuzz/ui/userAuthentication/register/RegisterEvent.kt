@@ -4,7 +4,7 @@ sealed class RegisterEvent {
 
     object Success : RegisterEvent()
 
-    data class RegistrationFails(private val error: String) : RegisterEvent()
+    data class RegistrationFails(val error: String) : RegisterEvent()
 
     object UsernameTooShort : RegisterEvent()
 

@@ -2,7 +2,6 @@ package com.aviral.talkbuzz.ui.userAuthentication.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aviral.talkbuzz.utils.Constants.MIN_USERNAME_LENGTH
 import com.aviral.talkbuzz.utils.Constants.isValidUsername
 import com.aviral.talkbuzz.utils.SharedPreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel

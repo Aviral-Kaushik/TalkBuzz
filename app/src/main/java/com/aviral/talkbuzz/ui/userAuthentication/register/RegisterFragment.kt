@@ -13,7 +13,7 @@ import com.aviral.talkbuzz.R
 import com.aviral.talkbuzz.databinding.FragmentRegisterBinding
 import com.aviral.talkbuzz.ui.BindingFragment
 import com.aviral.talkbuzz.utils.navigateSafely
-import kotlinx.coroutines.flow.collect
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 class RegisterFragment : BindingFragment<FragmentRegisterBinding>() {
@@ -72,19 +72,33 @@ class RegisterFragment : BindingFragment<FragmentRegisterBinding>() {
                 when (event) {
 
                     is RegisterEvent.Success -> {
+                        setupIdleUiState()
 
+                        findNavController().navigateSafely(
+                            R.id.action_registerFragment_to_channelFragment
+                        )
                     }
 
                     is RegisterEvent.RegistrationFails -> {
                         setupIdleUiState()
+
+                        Snackbar.make(
+                            binding.root,
+                            event.error,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                     }
 
                     is RegisterEvent.UsernameTooShort -> {
                         setupIdleUiState()
+
+                        binding.etUsername.error = "The username length is too short"
                     }
 
                     is RegisterEvent.InvalidPassword -> {
                         setupIdleUiState()
+
+                        binding.etPassword.error = "Invalid Password"
                     }
 
                 }
