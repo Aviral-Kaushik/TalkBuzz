@@ -1,4 +1,4 @@
-package com.aviral.talkbuzz.ui.login
+package com.aviral.talkbuzz.ui.userAuthentication.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,6 @@ import com.aviral.talkbuzz.utils.Constants.MIN_USERNAME_LENGTH
 import com.aviral.talkbuzz.utils.navigateSafely
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -24,14 +23,18 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentLoginBinding::inflate
 
-    private val viewModel:  LoginViewModel by viewModels()
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnConfirm.setOnClickListener {
             setupConnectingUiState()
-            viewModel.connectUser(binding.etUsername.text.toString())
+
+            viewModel.checkPasswordAndLoginUser(
+                binding.etUsername.text.toString(),
+                binding.etPassword.text.toString()
+            )
         }
 
         binding.etUsername.addTextChangedListener {
@@ -80,6 +83,12 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
                             R.id.action_loginFragment_to_channelFragment
                         )
 
+                    }
+
+                    is LoginEvent.InvalidPassword -> {
+                        setupIdleUiState()
+
+                        binding.etPassword.error = "Invalid Password"
                     }
 
                 }

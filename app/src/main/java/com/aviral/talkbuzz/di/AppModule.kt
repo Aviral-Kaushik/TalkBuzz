@@ -2,6 +2,7 @@ package com.aviral.talkbuzz.di
 
 import android.content.Context
 import com.aviral.talkbuzz.utils.Constants.API_KEY
+import com.aviral.talkbuzz.utils.SharedPreferenceManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,4 +19,9 @@ object AppModule {
     @Provides
     fun provideChatClient(@ApplicationContext context: Context) =
         ChatClient.Builder(API_KEY, context).build()
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferenceManager(@ApplicationContext context: Context) =
+        SharedPreferenceManager(context)
 }

@@ -14,4 +14,5 @@
     <string name="talk_buzz_shared_preference">talk_buzz_shared_preference</string>
     <string name="key_shared_password">key_shared_password</string>
     <string name="key_is_login">key_is_login</string>
+    <string name="password">Password</string>
 </resources>
