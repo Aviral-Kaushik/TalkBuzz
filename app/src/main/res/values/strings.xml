@@ -11,4 +11,7 @@
     <string name="choose_channel_name">Choose a channel name</string>
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
+    <string name="talk_buzz_shared_preference">talk_buzz_shared_preference</string>
+    <string name="key_shared_password">key_shared_password</string>
+    <string name="key_is_login">key_is_login</string>
 </resources>

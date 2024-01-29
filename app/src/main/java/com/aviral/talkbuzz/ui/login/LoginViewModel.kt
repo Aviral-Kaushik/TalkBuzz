@@ -33,6 +33,8 @@ class LoginViewModel @Inject constructor(
                     username = trimmedUsername
                 ).await()
 
+//                client.connectUser()
+
                 if (result.isError) {
                     _loginEvent.emit(LoginEvent.ErrorLogin(result.error().message
                         ?: "Unknown Error"))
