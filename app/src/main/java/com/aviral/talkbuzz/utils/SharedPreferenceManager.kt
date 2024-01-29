@@ -16,10 +16,11 @@ class SharedPreferenceManager constructor(
         )
     }
 
-    fun checkUserPassword(password: String): Boolean {
+    fun checkUserPassword(username: String, password: String): Boolean {
+        val storedUsername = preference.getString(context.getString(R.string.key_shared_username), "")
         val storedPassword = preference.getString(context.getString(R.string.key_shared_password), "")
 
-        return (password == storedPassword)
+        return ((username == storedUsername) && (password == storedPassword))
     }
 
 
@@ -27,9 +28,10 @@ class SharedPreferenceManager constructor(
         return preference.getBoolean(context.getString(R.string.key_is_login), false)
     }
 
-    fun loginUser(password: String) {
+    fun loginUser(username: String, password: String) {
         val sharedPreferenceEditor = preference.edit()
 
+        sharedPreferenceEditor.putString(context.getString(R.string.key_shared_username), username)
         sharedPreferenceEditor.putString(context.getString(R.string.key_shared_password), password)
         sharedPreferenceEditor.putBoolean(context.getString(R.string.key_is_login), true)
 

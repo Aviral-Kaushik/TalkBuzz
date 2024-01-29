@@ -3,15 +3,105 @@ package com.aviral.talkbuzz.ui.userAuthentication.register
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
+import com.aviral.talkbuzz.R
 import com.aviral.talkbuzz.databinding.FragmentRegisterBinding
 import com.aviral.talkbuzz.ui.BindingFragment
+import com.aviral.talkbuzz.utils.navigateSafely
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class RegisterFragment : BindingFragment<FragmentRegisterBinding>() {
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentRegisterBinding::inflate
 
+    private val viewModel: RegisterViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.btnConfirm.setOnClickListener {
+            if (binding.etPassword.text.toString()
+                == binding.etConfirmPassword.text.toString()) {
+
+                setupConnectingUiState()
+
+                viewModel.connectUser(
+                    binding.etUsername.text.toString().trim(),
+                    binding.etPassword.text.toString().trim()
+                )
+
+            } else {
+                binding.etConfirmPassword.error = "Password Doesn't Match"
+            }
+        }
+
+        binding.etUsername.addTextChangedListener {
+            binding.etUsername.error = null
+        }
+
+        binding.etPassword.addTextChangedListener {
+            binding.etPassword.error = null
+        }
+
+        binding.etConfirmPassword.addTextChangedListener {
+            binding.etConfirmPassword.error = null
+        }
+
+        binding.tvNavigateSignIn.setOnClickListener {
+            findNavController().navigateSafely(
+                R.id.action_registerFragment_to_loginFragment
+            )
+        }
+
+        subscribeToRegisterEvents()
+
+    }
+
+    private fun subscribeToRegisterEvents() {
+
+        lifecycleScope.launch {
+
+            viewModel.registerEvent.collect { event ->
+
+                when (event) {
+
+                    is RegisterEvent.Success -> {
+
+                    }
+
+                    is RegisterEvent.RegistrationFails -> {
+                        setupIdleUiState()
+                    }
+
+                    is RegisterEvent.UsernameTooShort -> {
+                        setupIdleUiState()
+                    }
+
+                    is RegisterEvent.InvalidPassword -> {
+                        setupIdleUiState()
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    private fun setupConnectingUiState() {
+        binding.progressBar.isVisible = true
+        binding.btnConfirm.isEnabled = false
+    }
+
+    private fun setupIdleUiState() {
+        binding.progressBar.isVisible = false
+        binding.btnConfirm.isEnabled = true
     }
 }

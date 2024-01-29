@@ -41,6 +41,16 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
             binding.etUsername.error = null
         }
 
+        binding.etPassword.addTextChangedListener {
+            binding.etPassword.error = null
+        }
+
+        binding.tvNavigateSignIn.setOnClickListener {
+            findNavController().navigateSafely(
+                R.id.action_loginFragment_to_registerFragment
+            )
+        }
+
         subscribeToEvent()
     }
 

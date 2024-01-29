@@ -15,4 +15,9 @@
     <string name="key_shared_password">key_shared_password</string>
     <string name="key_is_login">key_is_login</string>
     <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="don_t_have_an_account_sign_in">Don\'t have an account? Sign Up</string>
+    <string name="key_shared_username">key_shared_username</string>
+    <string name="have_an_account_sign_in">Have an account? Sign In</string>
 </resources>

@@ -3,6 +3,7 @@ package com.aviral.talkbuzz.ui.userAuthentication.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aviral.talkbuzz.utils.Constants.MIN_USERNAME_LENGTH
+import com.aviral.talkbuzz.utils.Constants.isValidUsername
 import com.aviral.talkbuzz.utils.SharedPreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.getstream.chat.android.client.ChatClient
@@ -21,18 +22,19 @@ class LoginViewModel @Inject constructor(
     private val _loginEvent = MutableSharedFlow<LoginEvent>()
 
     val loginEvent = _loginEvent.asSharedFlow()
-    private fun isValidUsername(username: String) =
-        username.length > MIN_USERNAME_LENGTH
+
+//    private fun isValidUsername(username: String) =
+//        username.length > MIN_USERNAME_LENGTH
 
     fun checkPasswordAndLoginUser(username: String, password: String) {
         viewModelScope.launch {
-            val result = sharedPreferenceManager.checkUserPassword(password)
+            val result = sharedPreferenceManager.checkUserPassword(username, password)
 
             if (!result) {
                 _loginEvent.emit(LoginEvent.InvalidPassword)
             }
 
-            sharedPreferenceManager.loginUser(password)
+            sharedPreferenceManager.loginUser(username, password)
 
             connectUser(username, password)
         }
@@ -62,7 +64,7 @@ class LoginViewModel @Inject constructor(
                     return@launch
                 }
 
-                sharedPreferenceManager.loginUser(password)
+                sharedPreferenceManager.loginUser(username, password)
 
                 _loginEvent.emit(LoginEvent.Success)
 
