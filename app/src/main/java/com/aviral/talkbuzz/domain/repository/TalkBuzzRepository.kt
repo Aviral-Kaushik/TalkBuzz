@@ -8,21 +8,18 @@ import kotlinx.coroutines.flow.Flow
 interface TalkBuzzRepository {
 
     suspend fun connectUser(
-        userId: String,
+        user: User,
         token: String
     ) : Flow<Resource<Boolean>>
 
     suspend fun createChannel(
         channelType: String,
-        channelId: String
+        channelId: String,
+        channelName: String
     ) : Flow<Resource<Boolean>>
 
-    suspend fun getUser(
-        client: ChatClient
-    ) : User?
+    suspend fun getUser() : User?
 
-    suspend fun logoutUser(
-        client: ChatClient
-    )
+    suspend fun logoutUser()
 
 }
