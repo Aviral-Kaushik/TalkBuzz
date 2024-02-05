@@ -2,7 +2,7 @@ package com.aviral.talkbuzz.di
 
 import android.content.Context
 import com.aviral.talkbuzz.utils.Constants.API_KEY
-import com.aviral.talkbuzz.utils.SharedPreferenceManager
+import com.aviral.talkbuzz.data.local.SharedPreferenceManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

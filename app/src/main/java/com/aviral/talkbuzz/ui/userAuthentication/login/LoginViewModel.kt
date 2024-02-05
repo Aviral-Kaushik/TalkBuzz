@@ -3,7 +3,7 @@ package com.aviral.talkbuzz.ui.userAuthentication.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aviral.talkbuzz.utils.Constants.isValidUsername
-import com.aviral.talkbuzz.utils.SharedPreferenceManager
+import com.aviral.talkbuzz.data.local.SharedPreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.client.call.await

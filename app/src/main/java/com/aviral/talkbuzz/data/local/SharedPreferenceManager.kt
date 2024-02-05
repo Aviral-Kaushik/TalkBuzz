@@ -1,4 +1,4 @@
-package com.aviral.talkbuzz.utils
+package com.aviral.talkbuzz.data.local
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
