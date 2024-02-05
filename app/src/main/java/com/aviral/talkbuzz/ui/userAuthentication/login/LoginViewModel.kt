@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aviral.talkbuzz.utils.Constants.isValidUsername
 import com.aviral.talkbuzz.data.local.SharedPreferenceManager
+import com.aviral.talkbuzz.domain.repository.TalkBuzzRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.client.call.await
@@ -16,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val client: ChatClient,
-    private val sharedPreferenceManager: SharedPreferenceManager
+    private val sharedPreferenceManager: SharedPreferenceManager,
+    private val talkBuzzRepository: TalkBuzzRepository
 ) : ViewModel() {
 
     private val _loginEvent = MutableSharedFlow<LoginEvent>()
