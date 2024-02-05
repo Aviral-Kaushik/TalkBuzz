@@ -60,7 +60,6 @@ class RegisterViewModel @Inject constructor(
 
             _registerEvent.emit(RegisterEvent.Success)
 
-
             registerUser(username, password)
         }
 

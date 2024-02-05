@@ -7,6 +7,7 @@ import com.aviral.talkbuzz.data.local.SharedPreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.client.call.await
+import io.getstream.chat.android.client.models.User
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -51,6 +52,7 @@ class LoginViewModel @Inject constructor(
                 ).await()
 
 //                client.connectUser()
+//                client.devToken()
 
                 if (result.isError) {
                     _loginEvent.emit(
