@@ -101,6 +101,13 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
                         binding.etPassword.error = "Invalid Password"
                     }
 
+                    is LoginEvent.Loading -> {
+                        if (event.isLoading)
+                            binding.progressBar.visibility = View.VISIBLE
+                        else
+                            binding.progressBar.visibility = View.GONE
+                    }
+
                 }
 
             }

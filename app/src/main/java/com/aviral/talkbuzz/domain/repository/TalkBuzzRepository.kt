@@ -1,5 +1,6 @@
 package com.aviral.talkbuzz.domain.repository
 
+import com.aviral.talkbuzz.ui.userAuthentication.login.LoginEvent
 import com.aviral.talkbuzz.utils.Resource
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.client.models.User

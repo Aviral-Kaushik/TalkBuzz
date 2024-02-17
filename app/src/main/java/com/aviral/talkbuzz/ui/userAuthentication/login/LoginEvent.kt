@@ -8,4 +8,5 @@ sealed class LoginEvent {
     object Success : LoginEvent()
 
     object InvalidPassword : LoginEvent()
+    data class Loading(val isLoading: Boolean) : LoginEvent()
 }

@@ -5,7 +5,7 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.aviral.talkbuzz.R
 
-class SharedPreferenceManager constructor(
+class SharedPreferenceManager(
     private val context: Context
 ) {
 
