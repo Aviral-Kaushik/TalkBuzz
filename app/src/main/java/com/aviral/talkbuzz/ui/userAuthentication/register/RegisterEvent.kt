@@ -9,5 +9,6 @@ sealed class RegisterEvent {
     object UsernameTooShort : RegisterEvent()
 
     object InvalidPassword : RegisterEvent()
+    data class Loading(val isLoading: Boolean) : RegisterEvent()
 
 }

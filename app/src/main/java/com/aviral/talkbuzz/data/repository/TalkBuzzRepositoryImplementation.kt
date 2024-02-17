@@ -24,7 +24,7 @@ class TalkBuzzRepositoryImplementation @Inject constructor(
 
             val result = client.connectUser(
                 user = user,
-                token = token
+                token = client.devToken(user.id)
             ).await()
 
             if (result.isError) {

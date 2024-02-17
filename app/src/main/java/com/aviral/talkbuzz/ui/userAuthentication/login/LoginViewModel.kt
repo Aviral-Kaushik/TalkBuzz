@@ -7,7 +7,6 @@ import com.aviral.talkbuzz.domain.repository.TalkBuzzRepository
 import com.aviral.talkbuzz.utils.Constants.isValidUsername
 import com.aviral.talkbuzz.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.client.models.User
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -16,7 +15,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val client: ChatClient,
     private val sharedPreferenceManager: SharedPreferenceManager,
     private val talkBuzzRepository: TalkBuzzRepository
 ) : ViewModel() {
@@ -54,8 +52,7 @@ class LoginViewModel @Inject constructor(
 
 
                 talkBuzzRepository.connectUser(
-                    User(id = trimmedUsername),
-                    client.devToken(trimmedUsername)
+                    User(id = trimmedUsername)
                 ).collect { result ->
                     when (result) {
                         is Resource.Success -> {

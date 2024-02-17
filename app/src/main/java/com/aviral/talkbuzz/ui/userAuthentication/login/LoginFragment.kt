@@ -102,6 +102,8 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
                     }
 
                     is LoginEvent.Loading -> {
+                        setupIdleUiState()
+
                         if (event.isLoading)
                             binding.progressBar.visibility = View.VISIBLE
                         else

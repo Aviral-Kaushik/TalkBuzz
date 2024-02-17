@@ -5,17 +5,18 @@ import androidx.lifecycle.viewModelScope
 import com.aviral.talkbuzz.utils.Constants.isValidPassword
 import com.aviral.talkbuzz.utils.Constants.isValidUsername
 import com.aviral.talkbuzz.data.local.SharedPreferenceManager
+import com.aviral.talkbuzz.domain.repository.TalkBuzzRepository
+import com.aviral.talkbuzz.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.getstream.chat.android.client.ChatClient
-import io.getstream.chat.android.client.call.await
+import io.getstream.chat.android.client.models.User
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val client: ChatClient,
-    private val sharedPreferenceManager: SharedPreferenceManager
+    private val sharedPreferenceManager: SharedPreferenceManager,
+    private val talkBuzzRepository: TalkBuzzRepository
 ) : ViewModel() {
 
     private val _registerEvent = MutableSharedFlow<RegisterEvent>()
@@ -44,23 +45,44 @@ class RegisterViewModel @Inject constructor(
 
         viewModelScope.launch {
 
-            val result = client.connectGuestUser(
-                userId = username,
-                username = username
-            ).await()
+//            val result = client.connectGuestUser(
+//                userId = username,
+//                username = username
+//            ).await()
 
-            if (result.isError) {
-                _registerEvent.emit(
-                    RegisterEvent.RegistrationFails(
-                        result.error().message ?: "Unknown Error"
-                    )
-                )
-                return@launch
+
+            talkBuzzRepository.connectUser(
+                User(id = username)
+            ).collect {result ->
+                when (result) {
+                    is Resource.Success -> {
+                        _registerEvent.emit(RegisterEvent.Success)
+
+                        registerUser(username, password)
+                    }
+
+                    is Resource.Error -> {
+                        _registerEvent.emit(RegisterEvent.RegistrationFails(result.message.toString()))
+                    }
+
+                    is Resource.Loading -> {
+                        _registerEvent.emit(RegisterEvent.Loading(result.isLoading))
+                    }
+                }
             }
 
-            _registerEvent.emit(RegisterEvent.Success)
+//            if (result.isError) {
+//                _registerEvent.emit(
+//                    RegisterEvent.RegistrationFails(
+//                        result.error().message ?: "Unknown Error"
+//                    )
+//                )
+//                return@launch
+//            }
 
-            registerUser(username, password)
+//            _registerEvent.emit(RegisterEvent.Success)
+
+//            registerUser(username, password)
         }
 
     }

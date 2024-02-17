@@ -101,6 +101,15 @@ class RegisterFragment : BindingFragment<FragmentRegisterBinding>() {
                         binding.etPassword.error = "Invalid Password"
                     }
 
+                    is RegisterEvent.Loading -> {
+                        setupIdleUiState()
+
+                        if (event.isLoading)
+                            binding.progressBar.visibility = View.VISIBLE
+                        else
+                            binding.progressBar.visibility = View.GONE
+
+                    }
                 }
 
             }
