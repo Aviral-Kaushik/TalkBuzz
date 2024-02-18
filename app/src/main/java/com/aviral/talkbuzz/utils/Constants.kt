@@ -10,6 +10,8 @@ object Constants {
 
     const val MIN_PASSWORD_LENGTH = 3
 
+    const val MESSAGING_TYPE = "messaging"
+
     fun isValidUsername(username: String) = username.length > MIN_USERNAME_LENGTH
 
     fun isValidPassword(password: String) = password.length > MIN_PASSWORD_LENGTH

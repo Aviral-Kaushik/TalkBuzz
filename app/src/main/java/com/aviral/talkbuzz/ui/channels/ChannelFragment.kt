@@ -99,6 +99,14 @@ class ChannelFragment : BindingFragment<FragmentChannelBinding>() {
                         ).show()
                     }
 
+                    is CreateChannelEvent.Loading -> {
+                        if (event.isLoading)
+                            binding.progressBar.visibility = View.VISIBLE
+                        else
+                            binding.progressBar.visibility = View.GONE
+
+                    }
+
                 }
             }
         }

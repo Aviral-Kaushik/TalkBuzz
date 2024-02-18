@@ -17,8 +17,8 @@ interface TalkBuzzRepository {
         channelName: String
     ) : Flow<Resource<Boolean>>
 
-    suspend fun getUser() : User?
+    fun getUser() : User?
 
-    suspend fun logoutUser()
+    fun logoutUser()
 
 }

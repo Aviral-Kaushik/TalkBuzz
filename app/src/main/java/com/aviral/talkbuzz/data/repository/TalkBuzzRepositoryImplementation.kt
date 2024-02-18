@@ -86,11 +86,11 @@ class TalkBuzzRepositoryImplementation @Inject constructor(
 
     }
 
-    override suspend fun getUser(): User? {
+    override fun getUser(): User? {
         return client.getCurrentUser()
     }
 
-    override suspend fun logoutUser() {
+    override fun logoutUser() {
         client.disconnect()
     }
 

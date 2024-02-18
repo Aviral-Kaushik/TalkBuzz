@@ -6,4 +6,6 @@ sealed class CreateChannelEvent {
 
     object Success : CreateChannelEvent()
 
+    data class Loading(val isLoading: Boolean) : CreateChannelEvent()
+
 }
